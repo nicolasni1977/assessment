@@ -54,7 +54,7 @@ Function  get_projects_team_members_permissions (Projects,Teammembers):
        ENDFOR
 
 
-Function  get_repos_permissions (Repos, Teammembers):
+Function  get_repos_team_members_permissions (Repos,Teammembers):
        Send Version Control System API Request (Repos, Teammembers) 
        FOR Repo in Repos
              Return Repo team member’s Permission Settings
