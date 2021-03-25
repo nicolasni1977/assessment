@@ -1,0 +1,71 @@
+#  Pseudocode for assessing Version Control System’s Permission and generate a report file
+
+#  Generate a report file for a Project Manager to list out names of projects under him/her with project 
+#  level permissions that may not have been configured correctly and to list out repositories for each 
+#  project with repository level permissions that may not have been configured correctly 
+ 
+# Expected Input
+       #  •	Project Admin’s BitBucket Username (Note: Project Admin = Project Manager)
+       #  •	Project Admin’s BitBucket Password
+       #  •	Team member’s BitBucket Username
+       #  •	Team member’s Expected Roles (Role should be defined as set of permissions member carries)
+
+# Expected Output
+       # •	List of Names of projects, with permissions that may not have been configured correctly
+       # •	List of BitBucket repositories for the Project named in above with permissions that may not have been configured correctly
+
+Call get_projects (ProjectAdminUsername,ProjectAdminPassword)
+Call get_repos (Projects)
+Call get_projects_team_members_permissions (Projects,Teammembers)
+Call get_repos_team_members_permissions (Repos,Teammembers)
+
+FOR each project in the version control system
+       FOR each repository in the version control system
+             IF   < Project.Permission and Repo.Permission are both TRUE >  DO:
+                   Call  assess_permission_detail (Project,Repo,TeamMemberUsername,ExpectedRole)
+             Otherwise IF  <Neither Project.Permission nor Repo.Permission is TRUE> DO:”
+                   Call  ErrorHandling ()
+             ENDIF
+       ENDFOR
+ENDFOR
+
+
+
+
+Function  get_projects (ProjectAdminUsername,ProjectAdminPassword):
+       Send Version Control System API Request (ProjectAdminUsername, ProjectAdminPassword) 
+       Return Projects
+
+
+
+
+Function  get_repos (Projects):
+       Send Version Control System API Request (Projects) 
+       FOR Project in Projects
+             Return repos
+       ENDFOR
+
+
+
+Function  get_projects_team_members_permissions (Projects,Teammembers):
+       Send Version Control System API Request (Projects, Teammembers) 
+       FOR Project in Projects
+             Return Project team member’s Permission Settings
+       ENDFOR
+
+
+Function  get_repos_permissions (Repos, Teammembers):
+       Send Version Control System API Request (Repos, Teammembers) 
+       FOR Repo in Repos
+             Return Repo team member’s Permission Settings
+       ENDFOR
+
+
+Function assess permission_detail (Project,Repo,TeammemberUsername,ExpectedRole):
+       Send Version Control System API Request (Project,Repo,TeammemberUsername)
+              IF <Permissions is NOT EQUAL TO ExpectedRole> DO:
+                  Print Project, Repo and Permissions details into a file
+                  Save file
+                   
+Function ErrorHandling ():
+       Handle Exception
