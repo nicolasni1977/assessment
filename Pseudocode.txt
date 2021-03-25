@@ -61,7 +61,7 @@ Function  get_repos_team_members_permissions (Repos,Teammembers):
        ENDFOR
 
 
-Function assess_permission_detail (Project,Repo,TeammemberUsername,ExpectedRole):
+Function assess_permission_detail (Project,Repo,TeamMemberUsername,ExpectedRole):
        Send Version Control System API Request (Project,Repo,TeammemberUsername)
               IF <Permissions is NOT EQUAL TO ExpectedRole> DO:
                   Print Project, Repo and Permissions details into a file
